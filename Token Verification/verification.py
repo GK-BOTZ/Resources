@@ -7,9 +7,6 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from cloudscraper import create_scraper
 from motor.motor_asyncio inport AsyncIOMotorClient
 
-from info import BOT_TOKEN, DATABASE_URI
-from config import Config
-
 
 # Config Variables 😄
 BOT_TOKEN = os.environ.get('BOT_TOKEN', '')   # YOUR BOT TOKEN FROM @Botfather
@@ -18,6 +15,8 @@ SHORTLINK_URL = os.environ.get('SHORTLINK_URL', '') # YOUR SHORTLINK URL LIKE:- 
 SHORTLINK_API = os.environ.get('SHORTLINK_API', '') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
 VERIFY_EXPIRE = os.environ.get('VERIFY_EXPIRE', '') # VERIFY EXPIRE TIME IN SECONDS. LIKE:- 0 (ZERO) TO OFF VERIFICATION 
 VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', '') # LINK OF TUTORIAL TO VERIFY 
+DATABASE_URI = os.environ.get('DATABASE_URI', '') # MONGODB DATABASE URL
+
 
 bot_id = BOT_TOKEN.split(':')[0]
 verify_dict = {}
