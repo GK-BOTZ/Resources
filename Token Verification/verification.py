@@ -105,6 +105,8 @@ async def short_url(longurl, _shortener = SHORTLINK_URL, _shortener_api = SHORTL
             res = res.json()
             if res.status_code == 200:
                 return res.get('shortenedUrl', long_url)
+    except Exception as e:
+        return long_link
 
 async def check_verification(client, message, data):
     user_id = message.from_user.id
