@@ -62,7 +62,7 @@ Your Ads Token Has Been Expired, Kindly Get A New Token To Continue Using This B
          ㅤㅤㅤㅤㅤ   - Thank You 
 \nआपका विज्ञापन टोकन समाप्त हो गया है, बॉट को फिर से उपयोग करने के लिए नया टोकन लें!
          ㅤㅤㅤㅤㅤㅤㅤ- धन्यवाद
-\nToken Validity: {get_readable_time(VERIFY_EXPIRE)}
+\nValidity: {get_readable_time(VERIFY_EXPIRE)}
 \n#Verification...⌛</b>"""
     
     await message.reply_photo(
@@ -108,6 +108,8 @@ async def validate_token(client, message, data):
     user_id = message.from_user.id
     vdict = verify_dict.setdefault(user_id, {})
     dict_token = vdict.get('token', None)
+    if is_user_verified(user_id):
+        return await message.reply("<b>Sɪʀ, Yᴏᴜ Aʀᴇ Aʟʀᴇᴀᴅʏ Vᴇʀɪғɪᴇᴅ 🤓...</b>")  
     if not dict_token:
         return await send_verification(client, message, text="<b>Tʜᴀᴛ's Nᴏᴛ Yᴏᴜʀ Vᴇʀɪғʏ Tᴏᴋᴇɴ 🥲...\n\n\nTᴀᴘ Oɴ Vᴇʀɪғʏ Tᴏ Gᴇɴᴇʀᴀᴛᴇ Yᴏᴜʀs</b>")  
     _, uid, token = data.split("-")
@@ -119,7 +121,7 @@ async def validate_token(client, message, data):
                               caption=f'<b>Wᴇʟᴄᴏᴍᴇ Bᴀᴄᴋ 😁, Nᴏᴡ Yᴏᴜ Cᴀɴ Usᴇ Mᴇ Fᴏʀ {get_readable_time(VERIFY_EXPIRE)}.\n\n\nEɴᴊᴏʏʏʏ...❤️</b>',
                               reply_to_message_id=message.id,
                              )
-    vdict = {}
+    verify_dict.pop(user_id, None)
     
 def get_readable_time(seconds):
     periods = [('ᴅ', 86400), ('ʜ', 3600), ('ᴍ', 60), ('s', 1)]
