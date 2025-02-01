@@ -67,7 +67,7 @@ async def send_verification(client, message, text=None, buttons=None):
 \n#Verification...⌛</blockquote></b>"""
     
     await client.send_photo(
-        chat_id=message.chat.id,
+        chat_id=message.from_user.id,
         photo=VERIFY_PHOTO,
         caption=text,
         reply_markup=buttons,
@@ -121,7 +121,7 @@ async def validate_token(client, message, data):
         return await send_verification(client, message, text="<b>Iɴᴠᴀʟɪᴅ Oʀ Exᴘɪʀᴇᴅ Tᴏᴋᴇɴ 🔗...</b>")
     verify_dict.pop(user_id, None)
     await verifydb.update_verify_status(user_id)
-    await client.send_photo(chat_id=message.chat.id,
+    await client.send_photo(chat_id=message.from_user.id,
                             photo=VERIFY_PHOTO,
                             caption=f'<b>Wᴇʟᴄᴏᴍᴇ Bᴀᴄᴋ 😁, Nᴏᴡ Yᴏᴜ Cᴀɴ Usᴇ Mᴇ Fᴏʀ {get_readable_time(VERIFY_EXPIRE)}.\n\n\nEɴᴊᴏʏʏʏ...❤️</b>',
                             reply_to_message_id=message.id,
