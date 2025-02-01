@@ -9,13 +9,13 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 
 # Config Variables 😄
-VERIFY_PHOTO = os.environ.get('VERIFY_PHOTO', 'https://envs.sh/s/7ddExUc0Ii8rYftCLx_cww/SnT.png')  # YOUR VERIFY PHOTO LINK
-SHORTLINK_SITE = os.environ.get('SHORTLINK_SITE', 'runurl.in') # YOUR SHORTLINK URL LIKE:- site.com
-SHORTLINK_API = os.environ.get('SHORTLINK_API', '1277706b49fbfbe00746b85d5e12f5b3e4bae1fd') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
-VERIFY_EXPIRE = os.environ.get('VERIFY_EXPIRE', 3600) # VERIFY EXPIRE TIME IN SECONDS. LIKE:- 0 (ZERO) TO OFF VERIFICATION 
-VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', 'https://t.me/pundiliyaa/8') # LINK OF TUTORIAL TO VERIFY 
+VERIFY_PHOTO = os.environ.get('VERIFY_PHOTO', '')  # YOUR VERIFY PHOTO LINK
+SHORTLINK_SITE = os.environ.get('SHORTLINK_SITE', '') # YOUR SHORTLINK URL LIKE:- site.com
+SHORTLINK_API = os.environ.get('SHORTLINK_API', '') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
+VERIFY_EXPIRE = os.environ.get('VERIFY_EXPIRE', ) # VERIFY EXPIRE TIME IN SECONDS. LIKE:- 0 (ZERO) TO OFF VERIFICATION 
+VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', '') # LINK OF TUTORIAL TO VERIFY 
 DATABASE_URL = os.environ.get('DATABASE_URL', '') # MONGODB DATABASE URL To Store Verifications 
-COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'post_finder')   # Collection Name For MongoDB 
+COLLECTION_NAME = os.environ.get('COLLECTION_NAME', '')   # Collection Name For MongoDB 
 
 verify_dict = {}
 missing=[v for v in ["COLLECTION_NAME", "VERIFY_PHOTO", "SHORTLINK_SITE", "SHORTLINK_API", "VERIFY_TUTORIAL"] if not v]; sys.exit(f"Missing: {', '.join(missing)}") if missing else None
