@@ -11,17 +11,13 @@ from info import BOT_TOKEN, DATABASE_URI
 from config import Config
 
 
-# requirements.txt ⚠️
-cloudscraper 
-motor
-
 # Config Variables 😄
-BOT_TOKEN = 
-VERIFY_PHOTO = 
-SHORTLINK_URL =
-SHORTLINK_API =
-VERIFY_EXPIRE = 
-VERIFY_TUTORIAL =
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '')   # YOUR BOT TOKEN FROM @Botfather
+VERIFY_PHOTO = os.environ.get('VERIFY_PHOTO', '')  # YOUR VERIFY PHOTO LINK
+SHORTLINK_URL = os.environ.get('SHORTLINK_URL', '') # YOUR SHORTLINK URL LIKE:- site.com
+SHORTLINK_API = os.environ.get('SHORTLINK_API', '') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
+VERIFY_EXPIRE = os.environ.get('VERIFY_EXPIRE', '') # VERIFY EXPIRE TIME IN SECONDS. LIKE:- 0 (ZERO) TO OFF VERIFICATION 
+VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', '') # LINK OF TUTORIAL TO VERIFY 
 
 bot_id = BOT_TOKEN.split(':')[0]
 verify_dict = {}
@@ -41,8 +37,8 @@ class VerifyDB():
 
     async def update_verify_status(self, user_id):
         await self._verifydb.update_one({'id': user_id}, {'$set': {'verify_status': time()}}, upsert=True)
-verifydb = VerifyDB()
 
+verifydb = VerifyDB()
 
 # Helper Functions
 async def is_user_verified(user_id):
@@ -108,7 +104,7 @@ async def short_url(longurl, _shortener = SHORTLINK_URL, _shortener_api = SHORTL
     except Exception as e:
         return long_link
 
-async def check_verification(client, message, data):
+async def validate_token(client, message, data):
     user_id = message.from_user.id
     vdict = verify_dict.setdefault(user_id, {})
     dict_token = vdict.get('token', None)
