@@ -5,7 +5,7 @@ from urllib3 import disable_warnings
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton 
 
 from cloudscraper import create_scraper
-from motor.motor_asyncio inport AsyncIOMotorClient
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
 
