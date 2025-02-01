@@ -14,4 +14,4 @@ The Add Token Verification Source Code Shared By @GKBOTZ, Is About To How To Add
 
 ## Support 
 If You Need Any Help Related To This Source Code Or Any You Can Ask In Our Telegram Group Or YouTube Channel.
-[Support Group](https://t.me/GK-Botz)
+[Support Group](https://telegram.me/The_Musica_Bot)
