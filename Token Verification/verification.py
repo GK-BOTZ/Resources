@@ -16,7 +16,7 @@ SHORTLINK_SITE = os.environ.get('SHORTLINK_SITE', '') # YOUR SHORTLINK URL LIKE:
 SHORTLINK_API = os.environ.get('SHORTLINK_API', '') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
 VERIFY_EXPIRE = os.environ.get('VERIFY_EXPIRE', 0) # VERIFY EXPIRE TIME IN SECONDS. LIKE:- 0 (ZERO) TO OFF VERIFICATION 
 VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', '') # LINK OF TUTORIAL TO VERIFY 
-#DATABASE_URL = os.environ.get('DATABASE_URL', '') # MONGODB DATABASE URL To Store Verifications 
+DATABASE_URL = os.environ.get('DATABASE_URL', '') # MONGODB DATABASE URL To Store Verifications 
 COLLECTION_NAME = os.environ.get('COLLECTION_NAME', '')   # Collection Name For MongoDB 
 PREMIUM_USERS = os.environ.get('PREMIUM_USERS', ''.split()) # PREMIUM USER ID's Separated By ' '(Space). LIKE:- '111111 222222 33333'
 
@@ -28,6 +28,12 @@ async def token_system_filter(_, __, message):
     uid = message.from_user.id
     if not VERIFY_EXPIRE or uid in PREMIUM_USERS:
         return False
+    if message.text:
+        cmd = message.text.split()
+        if len(cmd) == 2:
+            data = cmd[1]
+            if data.startswith("verify"):
+                return True
     isVerified = await is_user_verified(uid)
     if isVerified:
         return False
