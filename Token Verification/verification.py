@@ -22,6 +22,25 @@ PREMIUM_USERS = list(map(int, os.environ.get('PREMIUM_USERS', '6805001741 728282
 verify_dict = {}
 missing=[v for v in ["COLLECTION_NAME", "VERIFY_PHOTO", "SHORTLINK_SITE", "SHORTLINK_API", "VERIFY_TUTORIAL"] if not v]; sys.exit(f"Missing: {', '.join(missing)}") if missing else None
 
+# DATABSE
+class VerifyDB():
+    def __init__(self):
+        try:
+            self._dbclient = AsyncIOMotorClient(DATABASE_URL)
+            self._db = self._dbclient['verify-db']
+            self._verifydb = self._db[COLLECTION_NAME]  
+            print('Database Comnected ✅')
+        except Exception as e:
+            print(f'Failed To Connect To Database ❌. \nError: {str(e)}')
+    
+    async def get_verify_status(self, user_id):
+        if status := await self._verifydb.find_one({'id': user_id}):
+            return status.get('verify_status', 0)
+        return 0
+
+    async def update_verify_status(self, user_id):
+        await self._verifydb.update_one({'id': user_id}, {'$set': {'verify_status': time()}}, upsert=True)
+
 # GLOBAL VERIFY FUNCTION 
 async def token_system_filter(_, __, message):
     uid = message.from_user.id
@@ -49,23 +68,6 @@ async def global_verify_function(client, message):
                 return
     await send_verification(client, message)
         
-# DATABSE
-class VerifyDB():
-    def __init__(self):
-        self._dbclient = AsyncIOMotorClient(DATABASE_URL)
-        self._db = self._dbclient['verify-db']
-        self._verifydb = self._db[COLLECTION_NAME]  
-
-    async def get_verify_status(self, user_id):
-        if status := await self._verifydb.find_one({'id': user_id}):
-            return status.get('verify_status', 0)
-        return 0
-
-    async def update_verify_status(self, user_id):
-        await self._verifydb.update_one({'id': user_id}, {'$set': {'verify_status': time()}}, upsert=True)
-
-verifydb = VerifyDB()
-
 # FUNCTIONS
 async def is_user_verified(user_id):
     if not VERIFY_EXPIRE:
@@ -163,6 +165,8 @@ def get_readable_time(seconds):
             period_value, seconds = divmod(seconds, period_seconds)
             result += f'{int(period_value)}{period_name}'
     return result
+
+verifydb = VerifyDB()
 
 
     '''
