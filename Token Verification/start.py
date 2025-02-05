@@ -13,6 +13,9 @@ from PATH import validate_token
     #Other Codes 
 
 '''
-Add This Code In Your /start Command Handler.
+📝 Note :
+   1) No Need If Your Are Using GLOBAL TOKEN VERIFICATION 😜.
+   2) Add This Code In Your /start Command Handler.
+   
 Credit @GK-BOTZ
 '''
