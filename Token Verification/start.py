@@ -5,7 +5,7 @@ from PATH import validate_token
 
 #@Client.on_message(filters.command("start") & ~filters.channel)
 #async def start(bot, message):
-    if len(message.command) == 2: 
+    if hasattr(message, 'command') and len(message.command) == 2: 
        data = message.command[1]
        if data.split("-")[0] == 'verify':
            await validate_token(bot, message, data)
