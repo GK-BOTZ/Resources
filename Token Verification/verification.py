@@ -1,7 +1,12 @@
-import string, random, os, sys
-from urllib.parse import quote
+import os
+import sys
+import string
+import random
+
 from time import time
+from urllib.parse import quote
 from urllib3 import disable_warnings
+
 from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 
@@ -9,8 +14,9 @@ from cloudscraper import create_scraper
 from motor.motor_asyncio import AsyncIOMotorClient
 
 
+verify_dict = {}
 
-# Config Variables 😄
+# CONFIG VARIABLES 😄
 VERIFY_PHOTO = os.environ.get('VERIFY_PHOTO', '')  # YOUR VERIFY PHOTO LINK
 SHORTLINK_SITE = os.environ.get('SHORTLINK_SITE', '') # YOUR SHORTLINK URL LIKE:- site.com
 SHORTLINK_API = os.environ.get('SHORTLINK_API', '') # YOUR SHORTLINK API LIKE:- ma82owowjd9hw6_js7
@@ -19,10 +25,10 @@ VERIFY_TUTORIAL = os.environ.get('VERIFY_TUTORIAL', '') # LINK OF TUTORIAL TO VE
 DATABASE_URL = os.environ.get('DATABASE_URL', '') # MONGODB DATABASE URL To Store Verifications 
 COLLECTION_NAME = os.environ.get('COLLECTION_NAME', '')   # Collection Name For MongoDB 
 PREMIUM_USERS = list(map(int, os.environ.get('PREMIUM_USERS', '6805001741 7282828 292929').split()))
-verify_dict = {}
-missing=[v for v in ["COLLECTION_NAME", "VERIFY_PHOTO", "SHORTLINK_SITE", "SHORTLINK_API", "VERIFY_TUTORIAL"] if not v]; sys.exit(f"Missing: {', '.join(missing)}") if missing else None
 
-# DATABSE
+missing = [v for v in ["COLLECTION_NAME", "VERIFY_PHOTO", "SHORTLINK_SITE", "SHORTLINK_API", "VERIFY_TUTORIAL"] if not v]; sys.exit(f"Missing: {', '.join(missing)}") if missing else None 
+
+# DATABASE
 class VerifyDB():
     def __init__(self):
         try:
@@ -43,17 +49,7 @@ class VerifyDB():
 
 # GLOBAL VERIFY FUNCTION 
 async def token_system_filter(_, __, message):
-    uid = message.from_user.id
-    if not VERIFY_EXPIRE or uid in PREMIUM_USERS:
-        return False
-    if message.text:
-        cmd = message.text.split()
-        if len(cmd) == 2:
-            data = cmd[1]
-            if data.startswith("verify"):
-                return True
-    isVerified = await is_user_verified(uid)
-    if isVerified:
+    if is_verified := await is_user_verified(message.from_user.id):
         return False
     return True 
     
@@ -70,7 +66,7 @@ async def global_verify_function(client, message):
         
 # FUNCTIONS
 async def is_user_verified(user_id):
-    if not VERIFY_EXPIRE:
+    if not VERIFY_EXPIRE or (user_id in PREMIUM_USERS):
         return True
     isveri = await verifydb.get_verify_status(user_id)
     if not isveri or (time() - isveri) >= float(VERIFY_EXPIRE):
