@@ -130,7 +130,7 @@ async def get_short_url(longurl, shortener_site = SHORTLINK_SITE, shortener_api 
                 return res.get('shortenedUrl', long_url)
     except Exception as e:
         print(e)
-        return long_link
+        return longurl
 
 async def validate_token(client, message, data):
     user_id = message.from_user.id
