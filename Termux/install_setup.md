@@ -84,7 +84,7 @@ No fluff. Just power.
 
 ---
 
-### Pro 😎 ####
+### Pro 😎 (All In One) ####
 ```
 pkg update -y && pkg upgrade -y && pkg install -y python git clang build-essential libffi openssl vim curl wget unzip tar && python -m ensurepip && pip install -U pip setuptools wheel
 ```
