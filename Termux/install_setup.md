@@ -84,6 +84,10 @@ No fluff. Just power.
 
 ---
 
+### Pro 😎 ####
+```
+pkg update -y && pkg upgrade -y && pkg install -y python git clang build-essential libffi openssl vim curl wget unzip tar && python -m ensurepip && pip install -U pip setuptools wheel
+```
 ### 📎 Bonus Tips
 
 - Use `tmux` to keep sessions alive.
@@ -94,3 +98,4 @@ No fluff. Just power.
 
 **Happy coding from Termux!**  
 Built for hackers, coders, and devs — like you.
+
