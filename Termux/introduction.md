@@ -8,7 +8,7 @@
 
 Termux is a **powerful terminal emulator** and **Linux environment** app for Android. It gives you access to a full Linux command-line interface — no root required.
 
-![Termux Interface](https://upload.wikimedia.org/wikipedia/commons/0/05/Termux-app.jpg)
+![Termux Interface](![17492343343928712259246445265777](https://github.com/user-attachments/assets/1085a58a-247c-4a92-a034-c17399698ade))
 
 ---
 
