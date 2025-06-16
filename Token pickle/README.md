@@ -8,13 +8,6 @@ This tool allows you to securely generate a `token.pickle` for accessing Google 
 
 ---
 
-## 📋 Prerequisites
-
-- **Google OAuth Credentials:**  
-First Upload your `credentials.json` to the root of the repository.
-
----
-
 ## 🚀 Setup Instructions
 
 ### 1. Install Termux (If Not Already)
