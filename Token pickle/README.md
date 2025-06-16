@@ -1,28 +1,26 @@
 Here you go — this is your final .md file content, exactly as requested, professional and streamlined:
 
-
-
 ### 🔽 README.md
 
 ## 🔐 Token Generator for Google OAuth (`token.pickle`)
 
 This tool allows you to securely generate a `token.pickle` for accessing Google APIs (Drive, Gmail, YouTube, etc.) using `credentials.json`.
 
-
+---
 
 ## 📋 Prerequisites
 
 - **Google OAuth Credentials:**  
-  Upload your `credentials.json` to the root of the repository.
+First Upload your `credentials.json` to the root of the repository.
 
-
+---
 
 ## 🚀 Setup Instructions
 
 ### 1. Install Termux (If Not Already)
 
 Download from the official repo:  
-➡️ [Termux Releases](https://github.com/termux/termux-app/releases)
+➡️ [Termux Releases](https://play.google.com/store/apps/details?id=com.termux)
 
 Then open Termux and run:
 
@@ -33,9 +31,8 @@ pkg update && pkg upgrade -y
 pkg install git python python-pip -y
 pip install --upgrade pip
 ```
---
 
-
+---
 
 ### 2. Clone This Repository
 
@@ -44,13 +41,13 @@ cd TokenPickle
 
 Replace the dummy repo with your actual one.
 
-
+---
 
 ### 3. Install Python Requirements
 
 pip install -r requirements.txt
 
-
+---
 
 
 ### 4. Add Your Credentials File
@@ -62,7 +59,7 @@ If it’s in your phone's Downloads folder:
 cp /sdcard/Download/credentials.json ~/TokenPickle
 
 
-
+---
 ### 5. Generate the Token
 
 Run the script to start the OAuth flow:
@@ -86,13 +83,11 @@ You’ll see:
 
 Now run a simple Python HTTP server to download the token from your mobile browser:
 
+```
 python3 -m http.server 8080
+```
+Visit `http://localhost:8080` in your Android browser (like Chrome), and download token.pickle directly.
 
-Visit http://localhost:8080 in your Android browser (like Chrome), and download token.pickle directly.
-
-Or manually copy to internal storage:
-
-cp token.pickle /sdcard
 
 
 ---
