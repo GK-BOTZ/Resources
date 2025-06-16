@@ -34,54 +34,51 @@ pip install --upgrade pip
 
 ---
 
-### 2. Clone This Repository
 
-git clone https://github.com/your-username/TokenPickle
-cd TokenPickle
+### 2. Fork This Repository
 
-Replace the dummy repo with your actual one.
+https://github.com/GK-BOTZ/Token-Pickle/fork
 
 ---
 
-### 3. Install Python Requirements
+### 3. Upload Your Credentials File
+Now Upload Your `json` File And name it `credentials.json`
 
+--- 
+
+### 5. Clone The Repo
+```bash
+git clone https://github.com/YOUR_USERNAME/Token-Pickle
+```
+
+### 4. Install Python Requirements
+
+```bash
 pip install -r requirements.txt
+```
 
 ---
 
-
-### 4. Add Your Credentials File
-
-Move your credentials.json file into the cloned repo folder.
-
-If it’s in your phone's Downloads folder:
-
-cp /sdcard/Download/credentials.json ~/TokenPickle
-
-
----
 ### 5. Generate the Token
 
-Run the script to start the OAuth flow:
-
+```bash
 python3 generate.py
+```
 
-Copy the URL shown in Termux.
+- Copy the URL shown in Termux.
 
-Open it in a browser.
+- Open it in a browser.
 
-Sign in and allow access.
+- Sign in and allow access.
 
-You’ll see:
+- Then You’ll see:
 “The authentication flow has completed. You may close this window.”
-
-
 
 ---
 
 ### 6. Download the token.pickle File
 
-Now run a simple Python HTTP server to download the token from your mobile browser:
+- Now run a simple Python HTTP server to download the token from your mobile browser:
 
 ```
 python3 -m http.server 8080
@@ -96,15 +93,4 @@ Visit `http://localhost:8080` in your Android browser (like Chrome), and downloa
 
 You’ve successfully generated and saved token.pickle.
 Use it in your projects to access Google APIs without re-authenticating.
-
-
----
-
-### 🙏 Credit
-
-Inspired by SilentDemonSD
-
----
-
-If you want me to save it as a file and give you the download link, just say `give me file`.
 
