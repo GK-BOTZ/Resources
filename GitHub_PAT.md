@@ -1,15 +1,17 @@
-#FINE GRAINED
+## FINE GRAINED
 ```bash
 https://USERNAME:github_pat@github.com/USERNAME/REPO
 ```
 
-#CLASSIC 
+## CLASSIC 
 
 ```bash
 https://github_pat@github.com/USERNAME/REPO
 ```
 
 
-github_pat -> GitHub PAT
-USERNAME -> GitHub Username 
-REPO   -> GitHub Repo Name
+| Name         | Meaning                              |
+|--------------|--------------------------------------|
+| github_pat   | GitHub Personal Access Token (PAT)    |
+| USERNAME     | GitHub Username                      |
+| REPO         | GitHub Repository Name               |
