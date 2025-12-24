@@ -1,9 +1,9 @@
-## FINE GRAINED
+## FINE GRAINED TOKEN
 ```bash
 https://USERNAME:github_pat@github.com/USERNAME/REPO
 ```
 
-## CLASSIC 
+## CLASSIC TOKEN
 
 ```bash
 https://github_pat@github.com/USERNAME/REPO
