@@ -9,7 +9,7 @@ https://USERNAME:github_pat@github.com/USERNAME/REPO
 https://github_pat@github.com/USERNAME/REPO
 ```
 
-<br>
+
 # 
 | Name         | Meaning                              |
 |--------------|--------------------------------------|
