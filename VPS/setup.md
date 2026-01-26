@@ -20,6 +20,12 @@ ffmpeg \
 curl 
 ```
 
+## Run This To Clean Unnecessary Files
+```bash
+sudo apt autoremove --purge -y
+sudo apt clean
+sudo apt autoclean
+```
 
 ### Note: Aap Khudse Aur Packages Add Kar Sakte Hai.
 
