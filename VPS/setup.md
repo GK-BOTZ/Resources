@@ -35,5 +35,11 @@ Like: docker install ke liye.
 sudo apt install docker.io
 ```
 
+### Install NodeJS
+```bash
+curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt install -y nodejs
+```
+
+
 
 # HappyCoding
