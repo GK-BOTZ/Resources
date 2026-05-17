@@ -15,6 +15,7 @@ DEFAULT_PHONE_NUMBER = ""
 
 MAX_RETRY = 3
 
+
 def run(cmd):
 
     return subprocess.run(
@@ -23,6 +24,7 @@ def run(cmd):
         capture_output=True,
         text=True
     )
+
 
 def install(pkg):
 
@@ -41,6 +43,7 @@ def install(pkg):
             print(x.stderr)
 
             sys.exit(1)
+
 
 def ask(text, default=""):
 
@@ -62,6 +65,7 @@ def ask(text, default=""):
 
     sys.exit(1)
 
+
 print(
     "\nTelegram Session Generator\n"
 )
@@ -71,6 +75,11 @@ print(
     "- pyrogram\n"
     "- pyrofork\n"
     "- any pyrogram fork\n"
+)
+
+MODE = ask(
+    "Choose Login Method (1 = Phone Number, 2 = Session String)",
+    "1"
 )
 
 LIBRARY = ask(
@@ -88,10 +97,49 @@ API_HASH = ask(
     DEFAULT_API_HASH
 )
 
-PHONE_NUMBER = ask(
-    "Phone Number",
-    DEFAULT_PHONE_NUMBER
-)
+PHONE_NUMBER = ""
+OLD_SESSION = ""
+
+
+if MODE == "1":
+
+    API_ID = ask(
+        "API ID",
+        DEFAULT_API_ID
+    )
+
+    API_HASH = ask(
+        "API HASH",
+        DEFAULT_API_HASH
+    )
+
+    PHONE_NUMBER = ask(
+        "Phone Number",
+        DEFAULT_PHONE_NUMBER
+    )
+
+elif MODE == "2":
+
+    API_ID = ask(
+        "API ID",
+        DEFAULT_API_ID
+    )
+
+    API_HASH = ask(
+        "API HASH",
+        DEFAULT_API_HASH
+    )
+
+    OLD_SESSION = ask(
+        "Old Session String"
+    )
+    
+
+else:
+
+    print("Invalid Mode")
+
+    sys.exit(1)
 
 install(LIBRARY)
 install("tgcrypto")
@@ -128,13 +176,26 @@ SESSION = (
     f"USER_{uuid.uuid4().hex}"
 )
 
-app = Client(
-    SESSION,
-    api_id=int(API_ID),
-    api_hash=API_HASH,
-    phone_number=PHONE_NUMBER,
-    in_memory=True
-)
+if MODE == "1":
+
+    app = Client(
+        SESSION,
+        api_id=int(API_ID),
+        api_hash=API_HASH,
+        phone_number=PHONE_NUMBER,
+        in_memory=False 
+    )
+
+else:
+
+    app = Client(
+        SESSION,
+        api_id=int(API_ID),
+        api_hash=API_HASH,
+        session_string=OLD_SESSION,
+        in_memory=False
+    )
+
 
 async def main():
 
@@ -142,95 +203,99 @@ async def main():
 
         await app.connect()
 
-        sent = None
+        if MODE == "1":
 
-        for _ in range(MAX_RETRY):
-
-            try:
-
-                sent = await app.send_code(
-                    PHONE_NUMBER
-                )
-
-                break
-
-            except Exception as e:
-
-                print(e)
-
-        if not sent:
-
-            raise Exception(
-                "Failed Sending OTP"
-            )
-
-        ok = False
-
-        for _ in range(MAX_RETRY):
-
-            try:
-
-                otp = input(
-                    "\nEnter OTP: "
-                ).strip()
-
-                await app.sign_in(
-                    PHONE_NUMBER,
-                    sent.phone_code_hash,
-                    otp
-                )
-
-                ok = True
-
-                break
-
-            except SessionPasswordNeeded:
-
-                break
-
-            except PhoneCodeInvalid:
-
-                print(
-                    "Invalid OTP"
-                )
-
-            except Exception as e:
-
-                print(e)
-
-        if not ok:
+            sent = None
 
             for _ in range(MAX_RETRY):
 
                 try:
 
-                    pw = input(
-                        "\nEnter 2FA Password: "
+                    sent = await app.send_code(
+                        PHONE_NUMBER
+                    )
+
+                    break
+
+                except Exception as e:
+
+                    print(e)
+
+            if not sent:
+
+                raise Exception(
+                    "Failed Sending OTP"
+                )
+
+            ok = False
+
+            for _ in range(MAX_RETRY):
+
+                try:
+
+                    otp = input(
+                        "\nEnter OTP: "
                     ).strip()
 
-                    await app.check_password(
-                        password=pw
+                    await app.sign_in(
+                        PHONE_NUMBER,
+                        sent.phone_code_hash,
+                        otp
                     )
 
                     ok = True
 
                     break
 
-                except PasswordHashInvalid:
+                except SessionPasswordNeeded:
+
+                    break
+
+                except PhoneCodeInvalid:
 
                     print(
-                        "Wrong Password"
+                        "Invalid OTP"
                     )
 
                 except Exception as e:
 
                     print(e)
 
-        if not ok:
+            if not ok:
 
-            raise Exception(
-                "Login Failed"
-            )
+                for _ in range(MAX_RETRY):
+
+                    try:
+
+                        pw = input(
+                            "\nEnter 2FA Password: "
+                        ).strip()
+
+                        await app.check_password(
+                            password=pw
+                        )
+
+                        ok = True
+
+                        break
+
+                    except PasswordHashInvalid:
+
+                        print(
+                            "Wrong Password"
+                        )
+
+                    except Exception as e:
+
+                        print(e)
+
+            if not ok:
+
+                raise Exception(
+                    "Login Failed"
+                )
+
+        me = await app.get_me()
 
         session = await app.export_session_string()
 
@@ -254,8 +319,6 @@ async def main():
 
             print(e)
 
-        me = await app.get_me()
-
         print(
             f"\nSession Generated Successfully "
             f"for @{me.username or me.first_name}"
@@ -266,30 +329,45 @@ async def main():
         print(f"\n{e}")
 
     finally:
-
+    
         try:
-
+    
             app.storage.SESSION_STRING = None
-
+    
             await app.disconnect()
-
+    
         except:
             pass
-
+    
         for i in (
             glob.glob("USER*")
             + glob.glob("*.session*")
         ):
-
+    
             try:
-
+    
                 shutil.rmtree(i) if os.path.isdir(i) else os.remove(i)
-
+    
             except:
                 pass
-
+    
+        try:
+    
+            print(
+                f"\nUninstalling {LIBRARY} and tgcrypto...\n"
+            )
+    
+            run(
+                f"pip uninstall -y {LIBRARY} tgcrypto"
+            )
+    
+        except Exception as e:
+    
+            print(e)
+    
         print(
             "\nSession Files Cleaned"
         )
+
 
 asyncio.run(main())
