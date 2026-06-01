@@ -10,20 +10,52 @@ This tool allows you to securely generate a `token.pickle` for accessing Google 
 
 ## 🚀 Setup Instructions
 
-### 1. Install Termux (If Not Already)
+### 1. Install Termux (If Not Already Installed)
 
-Download from the official repo:  
-➡️ [Termux Releases](https://play.google.com/store/apps/details?id=com.termux)
+Download from the Play Store/App Store:  
+➡️ [Play Store](https://play.google.com/store/apps/details?id=com.termux)
+➡️ [App Store](https://apps.apple.com/in/app/termux/id6755708389)
 
 Then open Termux and run:
 
 --- 
 
-``` bash
-pkg update && pkg upgrade -y
-pkg install git python python-pip -y
+```bash
+apt update && apt upgrade -y
+pkg install -y git python python-cryptography
 pip install --upgrade pip
 ```
+
+Install Google OAuth libraries:
+
+```bash
+pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+```
+
+---
+
+## ⚠️ Fix error: Installing pip is forbidden
+
+If you get:
+
+```
+ERROR: Installing pip is forbidden
+```
+
+Run:
+
+```bash
+curl -sS https://bootstrap.pypa.io/get-pip.py | python
+```
+
+Then reinstall libraries:
+
+```bash
+pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+```
+
+Reference:  
+https://pip.pypa.io/en/stable/installation/
 
 ---
 
@@ -39,15 +71,9 @@ Now Upload Your `json` File And name it `credentials.json`
 
 --- 
 
-### 5. Clone The Repo
+### 4. Clone The Repo
 ```bash
 git clone https://github.com/YOUR_USERNAME/Token-Pickle
-```
-
-### 4. Install Python Requirements
-
-```bash
-pip install -r requirements.txt
 ```
 
 ---
@@ -87,3 +113,17 @@ Visit `http://localhost:8080` in your Android browser (like Chrome), and downloa
 You’ve successfully generated and saved token.pickle.
 Use it in your projects to access Google APIs without re-authenticating.
 
+
+## Testing token.pickle
+
+Run This
+```
+python3 test_token_pickle.py
+```
+
+## Extract token.pickle Information To Use Anywhere 
+
+Run This
+```
+python3 extract_token_pickle.py
+```
