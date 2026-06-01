@@ -58,11 +58,13 @@ This tool allows you to securely generate a `token.pickle` for accessing Google 
 ### 1. Install Termux (If Not Already Installed)
 
 Download from the Play Store/App Store:  
+---
 ➡️ [Play Store](https://play.google.com/store/apps/details?id=com.termux)
+---
 ➡️ [App Store](https://apps.apple.com/in/app/termux/id6755708389)
+---
 
 Then open Termux and run:
-
 --- 
 
 ```bash
