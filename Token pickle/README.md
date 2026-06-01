@@ -1,6 +1,51 @@
-Here you go — this is your final .md file content, exactly as requested, professional and streamlined:
+# 🚀 Generate Google Drive token.pickle, Client ID, Client Secret & Refresh Token
 
-### 🔽 README.md
+This guide explains how to generate a valid **Google OAuth 2.0 token (`token.pickle`)** and extract:
+
+- ✅ Client ID  
+- ✅ Client Secret  
+- ✅ Refresh Token  
+
+using **Android (Termux)** after Google’s new OAuth 2.0 security policy update.
+
+These credentials can be used for:
+- Cloudflare SecretX Index
+- Drive OAuth scripts
+- Google Drive API automation
+
+---
+
+## 🔗 Official References
+
+- Google OAuth 2.0  
+  https://developers.google.com/identity/protocols/oauth2  
+
+- Google Drive API  
+  https://developers.google.com/drive/api/v3/about-sdk  
+
+- OAuth Client Credentials Guide  
+  https://developers.google.com/workspace/guides/create-credentials  
+
+- Termux (official)  
+  https://f-droid.org/en/packages/com.termux/  
+
+- Cloudflare Workers  
+  https://developers.cloudflare.com/workers/  
+
+- OAuth Native App Flow  
+  https://developers.google.com/identity/protocols/oauth2/native-app  
+
+- Refresh Token Docs  
+  https://developers.google.com/identity/protocols/oauth2#offline  
+
+- Google OAuth Security Policy  
+  https://support.google.com/cloud/answer/9110914  
+
+- Google OAuth Safety Update  
+  https://developers.googleblog.com/2022/02/making-oauth-flows-safer.html  
+
+---
+
 
 ## 🔐 Token Generator for Google OAuth (`token.pickle`)
 
@@ -127,3 +172,7 @@ Run This
 ```
 python3 extract_token_pickle.py
 ```
+
+
+## Credits :-
+https://github.com/subhajit-maji/Gdrive-OAuth-Gen
