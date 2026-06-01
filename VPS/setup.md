@@ -9,7 +9,7 @@ sudo apt update -y && sudo apt upgrade -y
 
 ```bash
 sudo apt install -y \
-python3 \
+python3.12 \
 python3-pip \
 git \
 nano \
