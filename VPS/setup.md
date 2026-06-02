@@ -9,8 +9,9 @@ sudo apt update -y && sudo apt upgrade -y
 
 ```bash
 sudo apt install -y \
-python3.12 \
 python3-pip \
+python3.12-dev \
+build-essential \
 git \
 nano \
 zip \
