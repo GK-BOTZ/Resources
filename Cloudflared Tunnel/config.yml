@@ -1,0 +1,36 @@
+tunnel: TUNNEL_NAME
+credentials-file: /root/.cloudflared/TUNNEL_ID.json
+
+ingress:
+  # =========================
+  # MAIN → 8000
+  # =========================
+  - hostname: domain.com
+    service: http://localhost:PORT
+
+  - hostname: www.domain.com
+    service: http://localhost:PORT
+
+  # =========================
+  # TOOLS → 8002
+  # =========================
+  - hostname: tools.domain.com
+    service: http://localhost:8002
+
+  
+  # =========================
+  # WATCH → 8007
+  # =========================
+  - hostname: watch.domain.com
+    service: http://localhost:8007
+
+  # =========================
+  # SHORT → 8068
+  # =========================
+  - hostname: short.domain.com
+    service: http://localhost:8068
+
+  # =========================
+  # FALLBACK
+  # =========================
+  - service: http_status:404
